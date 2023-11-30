@@ -1,6 +1,7 @@
 package com.koga.live_notification.notification
 
 data class LiveNotificationPayload(
+    val id: Int,
     val title: String,
     val description: String,
     val step: Step,

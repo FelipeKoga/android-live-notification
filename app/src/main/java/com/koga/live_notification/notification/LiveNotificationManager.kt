@@ -8,7 +8,6 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.koga.live_notification.R
-import com.koga.live_notification.notification.LiveNotificationManager.createDefaultNotificationLayout
 import com.koga.live_notification.util.notificationManager
 
 object LiveNotificationManager {
@@ -19,9 +18,10 @@ object LiveNotificationManager {
 
     fun showNotification(context: Context, payload: LiveNotificationPayload) {
         val notification = context.createNotification(payload)
+
         context.notificationManager.notify(
             NOTIFICATION_TAG,
-            1,
+            payload.id,
             notification
         )
     }
@@ -31,7 +31,7 @@ object LiveNotificationManager {
     ): Notification {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setCustomContentView(createDefaultNotificationLayout(payload))
-            .setCustomBigContentView(createDefaultNotificationLayout(payload))
+            .setCustomBigContentView(createStepperNotificationLayout(payload))
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -45,10 +45,19 @@ object LiveNotificationManager {
     private fun Context.createDefaultNotificationLayout(
         payload: LiveNotificationPayload
     ): RemoteViews {
-        val view = RemoteViews(packageName, R.layout.notification_layout)
+        return RemoteViews(packageName, R.layout.notification_default).apply {
+            setTextViewText(R.id.tv_title, payload.title)
+            setTextViewText(R.id.tv_description, payload.description)
+        }
+    }
 
-        view.setTextViewText(R.id.tv_title, payload.title)
-        view.setTextViewText(R.id.tv_description, payload.description)
+    private fun Context.createStepperNotificationLayout(
+        payload: LiveNotificationPayload
+    ): RemoteViews {
+        val view = RemoteViews(packageName, R.layout.notification_large).apply {
+            setTextViewText(R.id.tv_title, payload.title)
+            setTextViewText(R.id.tv_description, payload.description)
+        }
 
         when (payload.step) {
             LiveNotificationPayload.Step.FIRST -> {
