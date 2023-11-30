@@ -3,6 +3,9 @@
 ## Description
 A test application for Android that demonstrates the implementation of live notifications using Firebase Cloud Messaging (FCM).
 
+## Demo
+![Live Notification Demo](https://github.com/FelipeKoga/android-live-notification/blob/main/assets/demo.gif)
+
 ## Setup
 
 ### Prerequisites
