@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:lines="1"
         android:textAppearance="@style/TextAppearance.Compat.Notification.Title"
         tools:text="notification title" />
 
@@ -19,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:lines="1"
         android:textAppearance="@style/TextAppearance.Compat.Notification.Info"
         tools:text="notification description" />
 
