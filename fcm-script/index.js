@@ -8,9 +8,9 @@ let message = {
   data: {
     id: "123",
     type: "LIVE_NOTIFICATION",
-    title: 'my custom title',
-    description: 'my custom description',
-    step: 'second_step', // second_step, third_step
+    title: 'Live Notification',
+    description: 'Stay informed! Your current task is successfully underway',
+    step: 'first_step', // second_step, third_step
   },
   topic: 'live_notification'
 };
