@@ -6,13 +6,16 @@ import android.app.NotificationManager
 import android.content.Context
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.koga.live_notification.R
+import com.koga.live_notification.notification.LiveNotificationManager.createDefaultNotificationLayout
 import com.koga.live_notification.util.notificationManager
 
 object LiveNotificationManager {
     private const val CHANNEL_ID = "live_notification_channel_id"
     private const val CHANNEL_NAME = "live_notification_channel_name"
     private const val NOTIFICATION_TAG = "live_notification_tag"
+    const val NOTIFICATION_TOPIC = "live_notification"
 
     fun showNotification(context: Context, payload: LiveNotificationPayload) {
         val notification = context.createNotification(payload)
@@ -28,8 +31,7 @@ object LiveNotificationManager {
     ): Notification {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setCustomContentView(createDefaultNotificationLayout(payload))
-            .setCustomBigContentView(createExpandedNotificationLayout(payload))
-            .setCustomHeadsUpContentView(createHeadsUpNotificationLayout(payload))
+            .setCustomBigContentView(createDefaultNotificationLayout(payload))
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -40,49 +42,32 @@ object LiveNotificationManager {
         return builder.build()
     }
 
-    private fun Context.createDefaultNotificationLayout(payload: LiveNotificationPayload): RemoteViews {
-        val notificationLayout = RemoteViews(packageName, R.layout.notification_layout)
+    private fun Context.createDefaultNotificationLayout(
+        payload: LiveNotificationPayload
+    ): RemoteViews {
+        val view = RemoteViews(packageName, R.layout.notification_layout)
 
-        notificationLayout.setTextViewText(R.id.tv_title, payload.title)
-        notificationLayout.setTextViewText(R.id.tv_description, payload.description)
-        notificationLayout.setProgressBar(
-            R.id.progressBar,
-            100,
-            payload.progress,
-            false
-        )
+        view.setTextViewText(R.id.tv_title, payload.title)
+        view.setTextViewText(R.id.tv_description, payload.description)
 
-        return notificationLayout
-    }
+        when (payload.step) {
+            LiveNotificationPayload.Step.FIRST -> {
+                view.setColor(R.id.iv_first_step, getActiveStepColor())
+            }
 
-    private fun Context.createExpandedNotificationLayout(payload: LiveNotificationPayload): RemoteViews {
-        val notificationLayout = RemoteViews(packageName, R.layout.notification_layout)
+            LiveNotificationPayload.Step.SECOND -> {
+                view.updateStepProgressBar(R.id.pb_first)
+                view.setColor(R.id.iv_second_step, getActiveStepColor())
+            }
 
-        notificationLayout.setTextViewText(R.id.tv_title, payload.title)
-        notificationLayout.setTextViewText(R.id.tv_description, payload.description)
-        notificationLayout.setProgressBar(
-            R.id.progressBar,
-            100,
-            payload.progress,
-            false
-        )
+            LiveNotificationPayload.Step.THIRD -> {
+                view.updateStepProgressBar(R.id.pb_first)
+                view.updateStepProgressBar(R.id.pb_second)
+                view.setColor(R.id.iv_third_step, getActiveStepColor())
+            }
+        }
 
-        return notificationLayout
-    }
-
-    private fun Context.createHeadsUpNotificationLayout(payload: LiveNotificationPayload): RemoteViews {
-        val notificationLayout = RemoteViews(packageName, R.layout.notification_layout)
-
-        notificationLayout.setTextViewText(R.id.tv_title, payload.title)
-        notificationLayout.setTextViewText(R.id.tv_description, payload.description)
-        notificationLayout.setProgressBar(
-            R.id.progressBar,
-            100,
-            payload.progress,
-            false
-        )
-
-        return notificationLayout
+        return view
     }
 
     fun createNotificationChannel(context: Context) {
@@ -97,4 +82,30 @@ object LiveNotificationManager {
         context.notificationManager.createNotificationChannel(channel)
     }
 
+    private fun RemoteViews.updateStepProgressBar(
+        layoutId: Int,
+        progress: Int = 100,
+    ) {
+        setProgressBar(
+            layoutId,
+            100,
+            progress,
+            false
+        )
+    }
+
+    private fun RemoteViews.setColor(
+        layoutId: Int,
+        color: Int,
+    ) {
+        setInt(
+            layoutId,
+            "setColorFilter",
+            color
+        )
+    }
+
+    private fun Context.getActiveStepColor(): Int {
+        return ContextCompat.getColor(this, R.color.teal_700)
+    }
 }

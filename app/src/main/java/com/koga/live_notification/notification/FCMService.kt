@@ -12,13 +12,21 @@ class FCMService : FirebaseMessagingService() {
 
         val data: Map<String, Any> = message.data
 
-        LiveNotificationManager.showNotification(
-            context = this,
-            payload = LiveNotificationPayload(
-                progress = data["progress"].toString().toInt(),
-                title = data["title"].toString(),
-                description = data["description"].toString()
+        if (data[NOTIFICATION_TYPE] == LIVE_NOTIFICATION) {
+            LiveNotificationManager.showNotification(
+                context = this,
+                payload = LiveNotificationPayload(
+                    step = LiveNotificationPayload.Step.get(data["step"].toString()),
+                    title = data["title"].toString(),
+                    description = data["description"].toString()
+                )
             )
-        )
+        }
+
+    }
+
+    companion object {
+        private const val NOTIFICATION_TYPE = "type"
+        private const val LIVE_NOTIFICATION = "LIVE_NOTIFICATION"
     }
 }
