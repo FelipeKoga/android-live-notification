@@ -1,4 +1,4 @@
-package com.koga.poc_live_notification.ui.theme
+package com.koga.live_notification.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

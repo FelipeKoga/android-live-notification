@@ -1,4 +1,4 @@
-package com.koga.poc_live_notification
+package com.koga.live_notification
 
 import org.junit.Test
 

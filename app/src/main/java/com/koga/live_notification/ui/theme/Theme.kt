@@ -1,4 +1,4 @@
-package com.koga.poc_live_notification.ui.theme
+package com.koga.live_notification.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -38,7 +38,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun PoclivenotificationTheme(
+fun PocLiveNotificationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

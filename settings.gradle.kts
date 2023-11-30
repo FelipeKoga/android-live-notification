@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "poc-live-notification"
+rootProject.name = "live-notification"
 include(":app")
  

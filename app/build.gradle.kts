@@ -2,14 +2,15 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.koga.poc_live_notification"
+    namespace = "com.koga.live_notification"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.koga.poc_live_notification"
+        applicationId = "com.koga.live_notification"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -60,6 +61,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.firebase.messaging)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

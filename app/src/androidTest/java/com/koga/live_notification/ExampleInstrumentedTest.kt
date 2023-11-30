@@ -1,4 +1,4 @@
-package com.koga.poc_live_notification
+package com.koga.live_notification
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
