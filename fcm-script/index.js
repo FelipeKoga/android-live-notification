@@ -6,12 +6,13 @@ admin.initializeApp({
 
 let message = {
   data: {
+    id: "123",
     type: "LIVE_NOTIFICATION",
     title: 'my custom title',
     description: 'my custom description',
-    step: 'third_step', // second_step, third_step
+    step: 'second_step', // second_step, third_step
   },
-  topic: 'real_time_notification'
+  topic: 'live_notification'
 };
 
 admin.messaging().send(message)
