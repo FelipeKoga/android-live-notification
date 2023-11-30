@@ -6,9 +6,10 @@ admin.initializeApp({
 
 let message = {
   data: {
-    progress: "24",
+    type: "LIVE_NOTIFICATION",
     title: 'my custom title',
-    description: 'my custom description'
+    description: 'my custom description',
+    step: 'third_step', // second_step, third_step
   },
   topic: 'real_time_notification'
 };
