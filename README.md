@@ -2,7 +2,7 @@
 
 ## Description
 Android app that demonstrates the implementation of live notifications using Firebase Cloud Messaging (FCM).
-The goal of this project is to attempt to simulate iOS's Live Activities feature using RemoteViews and FCM.
+This project aims to replicate the iOS Live Activities feature using Android RemoteViews and FCM.
 
 ## Demo
 ![Live Notification Demo](https://github.com/FelipeKoga/android-live-notification/blob/main/assets/demo.gif)
