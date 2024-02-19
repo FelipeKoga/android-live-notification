@@ -36,9 +36,9 @@ A test application for Android that demonstrates the implementation of live noti
    - Navigate to the `fcm-script` folder in your project directory.
    - Run `npm install` to install the required Node.js dependencies.
 
-6. **Execute Push Notification Script**
-   - Run the script with `node index.js` to send the push notification.
-
-7. **Build and Run**
+6. **Build and Run**
    - Build the project in Android Studio.
    - Run the app on an emulator or physical device.
+  
+7. **Execute Push Notification Script**
+   - Run the script with `node index.js` to send the push notification.
